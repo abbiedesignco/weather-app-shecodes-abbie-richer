@@ -12,51 +12,10 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <link rel="stylesheet" href="src/styles.css" />
     <title>Search Engine API</title>
   </head>
   <body>
-    <style>
-      body {
-        font-family: "Courier New", Courier, monospace;
-      }
-
-      ul {
-        margin: 0 0 10px;
-        padding: 0;
-      }
-
-      li {
-        color: grey;
-        list-style: none !important;
-      }
-
-      .weather-app {
-        border: 1px solid lightgrey;
-        padding: 20px;
-        margin: 20px auto;
-        border-radius: 15px;
-        max-width: 800px;
-      }
-
-      .search-form {
-        margin-bottom: 40px;
-      }
-
-      .float-left {
-        float: left !important;
-      }
-
-      .currentTemperature {
-        font-size: 70px;
-        line-height: 1;
-      }
-
-      .unit {
-        position: relative;
-        top: -30px;
-      }
-    </style>
-
     <div class="container">
       <div class="weather-app">
         <form class="search-form" id="search-form">
@@ -94,7 +53,6 @@
           <div class="col-6">
             <ul>
               <li id="dateTime">Thursday 12:33</li>
-              <li id="description">Fog</li>
               <li>Humidity:<span id="humidity"> 61</span>%</li>
               <li>Wind:<span id="wind"> 3</span> km/h</li>
             </ul>
@@ -108,84 +66,5 @@
         </div>
       </div>
     </div>
-    <script>
-
-        //Search City
-        function searchCity(city) {
-  let key = "5f472b7acba333cd8a035ea85a0d4d4c";
-  let url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${key}&units=metric`;
-  axios.get(url).then(showCurrentLocation);
-}
-
-function search(event) {
-  event.preventDefault();
-  let cityInput = document.querySelector("#search-button");
-  searchCity(cityInput.value);
-}
-let form = document.querySelector("#search-form");
-form.addEventListener("submit", search);
-
-
-//Current Location
-function searchLocation(position) {
-  let apiKey = "5f472b7acba333cd8a035ea85a0d4d4c";
-  let lat = position.coords.latitude;
-  let lon = position.coords.longitude;
-  let url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&appid=${apiKey}`;
-  axios.get(url).then(showCurrentLocation);
-}
-
-function getCurrentLocation(event) {
-  event.preventDefault();
-  navigator.geolocation.getCurrentPosition(searchLocation);
-}
-let currentLocation = document.querySelector("#city");
-currentLocation.addEventListener("click", getCurrentLocation);
-searchCity("New York");
-
-//Current Day and Time
-function todayDate() {
-  let currentTime = new Date();
-  let hours = currentTime.getHours();
-  if (hours < 10) {
-    hours = `0${hours}`;
-  }
-  let minutes = currentTime.getMinutes();
-  if (minutes < 10) {
-    minutes = `0${minutes}`;
-  }
-
-let days = [
-    "Sunday",
-    "Monday",
-    "Tuesday",
-    "Wednesday",
-    "Thursday",
-    "Friday",
-    "Saturday"
-  ];
-
-  let day = days[currentTime.getDay()];
-  let hour = currentTime.getHours();
-  let minute = currentTime.getMinutes();
-
-  let currentDate = `${day} ${hour}:${minute}`;
-  return currentDate;
-}
-
-let today = document.querySelector("#dateTime");
-today.innerHTML = todayDate();
-
-//Current Weather elements
-function showCurrentLocation(response) {
-  let humidity = document.querySelector(".humidity");
-  humidity.innerHTML = response.data.main.humidity;
-
-  let wind = document.querySelector(".wind");
-  wind.innerHTML = Math.round(response.data.wind.speed);
-}
-
-
-    </script>
+    <script src="src/index.mjs"></script>
   </body>
-</html>

@@ -26,7 +26,7 @@ function getCurrentLocation(event) {
   event.preventDefault();
   navigator.geolocation.getCurrentPosition(searchLocation);
 }
-let currentLocation = document.querySelector("#city");
+let currentLocation = document.querySelector("#current-location");
 currentLocation.addEventListener("click", getCurrentLocation);
 searchCity("New York");
 
@@ -65,9 +65,15 @@ today.innerHTML = todayDate();
 
 //Current Weather elements
 function showCurrentLocation(response) {
-  let humidity = document.querySelector(".humidity");
+  let cityElement = document.querySelector("#city");
+  cityElement.innerHTML = response.data.name;
+
+  let temperatureElement = document.querySelector("#temperature");
+  temperatureElement.innerHTML = response.data.main.temp;
+
+  let humidity = document.querySelector("#humidity");
   humidity.innerHTML = response.data.main.humidity;
 
-  let wind = document.querySelector(".wind");
+  let wind = document.querySelector("#wind");
   wind.innerHTML = Math.round(response.data.wind.speed);
 }
