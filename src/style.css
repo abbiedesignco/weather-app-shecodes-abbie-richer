@@ -12,6 +12,10 @@ li {
   list-style: none !important;
 }
 
+.container {
+  max-width: 800px;
+}
+
 .weather-app {
   border: 1px solid lightgrey;
   padding: 20px;
@@ -36,4 +40,10 @@ li {
 .unit {
   position: relative;
   top: -30px;
+}
+
+.small,
+small {
+  font-size: 80%;
+  font-weight: 400;
 }
